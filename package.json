@@ -1,0 +1,12 @@
+{
+  "name": "safenest",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "build:android": "cd android && ./gradlew assembleRelease",
+    "build:ios": "cd ios && xcodebuild",
+    "test": "jest",
+    "lint": "eslint src/"
+  }
+}

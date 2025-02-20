@@ -1,0 +1,7 @@
+{
+  "common": { "save": "Luu", "cancel": "Huy", "delete": "Xoa", "loading": "Dang tai..." },
+  "auth": { "login": "Dang nhap", "logout": "Dang xuat", "email": "Email", "password": "Mat khau" },
+  "dashboard": { "title": "Trang chu", "noDevices": "Chua co thiet bi nao ket noi" },
+  "settings": { "title": "Cai dat", "theme": "Giao dien", "language": "Ngon ngu", "notifications": "Thong bao" },
+  "devices": { "title": "Thiet bi", "scan": "Quet thiet bi", "pair": "Ket noi thiet bi", "noDevices": "Khong tim thay thiet bi" }
+}

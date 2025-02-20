@@ -1,0 +1,7 @@
+{
+  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "loading": "Loading..." },
+  "auth": { "login": "Sign In", "logout": "Sign Out", "email": "Email", "password": "Password" },
+  "dashboard": { "title": "Dashboard", "noDevices": "No devices connected" },
+  "settings": { "title": "Settings", "theme": "Theme", "language": "Language", "notifications": "Notifications" },
+  "devices": { "title": "Devices", "scan": "Scan for devices", "pair": "Pair device", "noDevices": "No devices found" }
+}

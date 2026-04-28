@@ -1,0 +1,3 @@
+pr_title_check:
+  jira_prefix: "SAF"
+  jira_url: "https://aottws.atlassian.net/browse/"  # example: https://aottws.atlassian.net/browse/SAF-260

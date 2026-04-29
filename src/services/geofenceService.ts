@@ -1,0 +1,60 @@
+import Geolocation from '@react-native-community/geolocation';
+import { apiClient } from '../api/client';
+
+export interface GeofenceZone {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  radiusMeters: number;
+  alertOnEntry: boolean;
+  alertOnExit: boolean;
+  isActive: boolean;
+}
+
+export class GeofenceService {
+  static async getZones(): Promise<GeofenceZone[]> {
+    const response = await apiClient.get('/geofence/zones');
+    return response.data;
+  }
+
+  static async createZone(zone: Omit<GeofenceZone, 'id'>): Promise<GeofenceZone> {
+    const response = await apiClient.post('/geofence/zones', zone);
+    return response.data;
+  }
+
+  static async deleteZone(id: string): Promise<void> {
+    await apiClient.delete(`/geofence/zones/${id}`);
+  }
+
+  static async checkCurrentPosition(zones: GeofenceZone[]): Promise<string[]> {
+    const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+      Geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true, timeout: 5000 });
+    });
+
+    const triggeredZoneIds: string[] = [];
+    for (const zone of zones) {
+      const distance = this.calculateDistance(
+        position.coords.latitude,
+        position.coords.longitude,
+        zone.latitude,
+        zone.longitude,
+      );
+      if (distance <= zone.radiusMeters) {
+        triggeredZoneIds.push(zone.id);
+      }
+    }
+    return triggeredZoneIds;
+  }
+
+  private static calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371e3;
+    const toRad = (deg: number) => (deg * Math.PI) / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) ** 2 +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+}
